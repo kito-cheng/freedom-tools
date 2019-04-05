@@ -2,7 +2,7 @@ os: osx
 sudo: true
 
 install:
-  - brew update && brew install cmake gawk gnu-sed gnu-tar gmp mpfr libmpc isl zlib expat texinfo libtool pkg-config
+  - brew update && brew install gawk gnu-sed gnu-tar mpfr libmpc isl zlib expat texinfo
 script:
   - make obj/x86_64-apple-darwin/stamps/expat/install.stamp
   - make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/stamp
