@@ -1,0 +1,21 @@
+os: osx
+sudo: true
+
+install:
+  - brew update && brew install cmake gawk gnu-sed gnu-tar gmp mpfr libmpc isl zlib expat texinfo libtool pkg-config
+script:
+  - make obj/x86_64-apple-darwin/stamps/expat/install.stamp
+  - make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/stamp
+  - make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-binutils-newlib/stamp
+  - make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-gdb-newlib/stamp
+  - make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-gcc-newlib-stage1/stamp
+  - make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-newlib/stamp
+  - make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-newlib-nano/stamp
+  - make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-newlib-nano-install/stamp
+  - make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/stamp
+  - make obj/x86_64-apple-darwin/stamps/riscv-gnu-toolchain/install.stamp
+  - make bin/riscv64-unknown-elf-gcc-8.2.0-2019.02.0-x86_64-apple-darwin.src.tar.gz
+  - make bin/riscv64-unknown-elf-gcc-8.2.0-2019.02.0-x86_64-apple-darwin.tar.gz
+  - make obj/x86_64-apple-darwin/stamps/riscv-openocd/install.stamp
+  - make bin/riscv-openocd-0.10.0-2019.02.0-x86_64-apple-darwin.src.tar.gz
+  - make bin/riscv-openocd-0.10.0-2019.02.0-x86_64-apple-darwin.tar.gz

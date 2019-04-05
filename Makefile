@@ -68,6 +68,14 @@ ROCD_VERSION := 0.10.0-2019.02.0
 PATH := $(abspath $(OBJ_NATIVE)/install/riscv64-unknown-elf-gcc-$(RGT_VERSION)-$(NATIVE)/bin):$(PATH)
 export PATH
 
+.PHONY: echo-toolchain-version
+echo-toolchain-version:
+	@echo $(RGT_VERSION)
+
+.PHONY: echo-openocd-version
+echo-openocd-version:
+	@echo $(ROCD_VERSION)
+
 # The actual output of this repository is a set of tarballs.
 .PHONY: win64 win64-openocd win64-gcc
 win64: win64-openocd win64-gcc
@@ -227,7 +235,7 @@ $(OBJDIR)/%/build/riscv-gnu-toolchain/build-binutils-newlib/stamp: \
 		CFLAGS="-O2" \
 		CXXFLAGS="-O2" &>make-configure.log
 	$(MAKE) -C $(dir $@) &>$(dir $@)/make-build.log
-	$(MAKE) -C $(dir $@) install install-pdf install-html &>$(dir $@)/make-install.log
+	$(MAKE) -C $(dir $@) install &>$(dir $@)/make-install.log
 	date > $@
 
 $(OBJDIR)/%/build/riscv-gnu-toolchain/build-gdb-newlib/stamp: \
@@ -254,7 +262,7 @@ $(OBJDIR)/%/build/riscv-gnu-toolchain/build-gdb-newlib/stamp: \
 		CFLAGS="-O2" \
 		CXXFLAGS="-O2" &>make-configure.log
 	$(MAKE) -C $(dir $@) &>$(dir $@)/make-build.log
-	$(MAKE) -C $(dir $@) install install-pdf install-html &>$(dir $@)/make-install.log
+	$(MAKE) -C $(dir $@) install &>$(dir $@)/make-install.log
 	date > $@
 
 $(OBJDIR)/%/build/riscv-gnu-toolchain/build-gcc-newlib-stage1/stamp: \
@@ -311,10 +319,6 @@ $(OBJDIR)/%/build/riscv-gnu-toolchain/build-newlib/stamp: \
 		CXXFLAGS_FOR_TARGET="-Os $(CXXFLAGS_FOR_TARGET)" &>make-configure.log
 	$(MAKE) -C $(dir $@) &>$(dir $@)/make-build.log
 	$(MAKE) -C $(dir $@) install &>$(dir $@)/make-install.log
-# These install multiple copies of the same docs into the same destination
-# for a multilib build.  So we must not parallelize them.
-# TODO: Rewrite so that we only install one copy of the docs.
-	$(MAKE) -j1 -C $(dir $@) install-pdf install-html &>$(dir $@)/make-install-doc.log
 	date > $@
 
 $(OBJDIR)/%/build/riscv-gnu-toolchain/build-newlib-nano/stamp: \
@@ -412,7 +416,7 @@ $(OBJDIR)/%/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/stamp: \
 		CFLAGS_FOR_TARGET="-Os $(CFLAGS_FOR_TARGET)" \
 		CXXFLAGS_FOR_TARGET="-Os $(CXXFLAGS_FOR_TARGET)" &>make-configure.log
 	$(MAKE) -C $(dir $@) &>$(dir $@)/make-build.log
-	$(MAKE) -C $(dir $@) install install-pdf install-html &>$(dir $@)/make-install.log
+	$(MAKE) -C $(dir $@) install &>$(dir $@)/make-install.log
 	date > $@
 
 # The Windows build requires the native toolchain.  The dependency is enforced
@@ -480,8 +484,7 @@ $(OBJDIR)/%/stamps/riscv-openocd/install.stamp: \
 	mkdir -p $($@_BUILD)
 	cd $($@_BUILD); $($($@_TARGET)-rocd-vars) ./configure --prefix=$(abspath $($@_INSTALL)) --disable-remote-bitbang --disable-werror --enable-ftdi $($($@_TARGET)-rocd-configure) &>make-configure.log
 	$(MAKE) $($($@_TARGET)-rocd-vars) -C $($@_BUILD) &>$($@_BUILD)/make-build.log
-	$(MAKE) $($($@_TARGET)-rocd-vars) -C $($@_BUILD) pdf html &>$($@_BUILD)/make-build-doc.log
-	$(MAKE) $($($@_TARGET)-rocd-vars) -C $($@_BUILD) install install-pdf install-html &>$($@_BUILD)/make-install.log
+	$(MAKE) $($($@_TARGET)-rocd-vars) -C $($@_BUILD) install &>$($@_BUILD)/make-install.log
 	mkdir -p $(dir $@)
 	date > $@
 
