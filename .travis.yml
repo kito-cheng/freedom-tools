@@ -4,18 +4,18 @@ sudo: true
 install:
   - brew update && brew install gawk gnu-sed gnu-tar mpfr libmpc isl zlib expat texinfo
 script:
-  - travis wait 60 make obj/x86_64-apple-darwin/stamps/expat/install.stamp
-  - travis wait 60 make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/stamp
-  - travis wait 60 make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-binutils-newlib/stamp
-  - travis wait 60 make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-gdb-newlib/stamp
-  - travis wait 60 make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-gcc-newlib-stage1/stamp
-  - travis wait 60 make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-newlib/stamp
-  - travis wait 60 make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-newlib-nano/stamp
-  - travis wait 60 make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-newlib-nano-install/stamp
-  - travis wait 60 make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/stamp
-  - travis wait 60 make obj/x86_64-apple-darwin/stamps/riscv-gnu-toolchain/install.stamp
-  - travis wait 60 make bin/riscv64-unknown-elf-gcc-8.2.0-2019.02.0-x86_64-apple-darwin.src.tar.gz
-  - travis wait 60 make bin/riscv64-unknown-elf-gcc-8.2.0-2019.02.0-x86_64-apple-darwin.tar.gz
-  - travis wait 60 make obj/x86_64-apple-darwin/stamps/riscv-openocd/install.stamp
-  - travis wait 60 make bin/riscv-openocd-0.10.0-2019.02.0-x86_64-apple-darwin.src.tar.gz
-  - travis wait 60 make bin/riscv-openocd-0.10.0-2019.02.0-x86_64-apple-darwin.tar.gz
+  - travis_wait 60 make obj/x86_64-apple-darwin/stamps/expat/install.stamp
+  - travis_wait 60 make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/stamp
+  - travis_wait 60 make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-binutils-newlib/stamp
+  - travis_wait 60 make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-gdb-newlib/stamp
+  - travis_wait 60 make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-gcc-newlib-stage1/stamp
+  - travis_wait 60 make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-newlib/stamp
+  - travis_wait 60 make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-newlib-nano/stamp
+  - travis_wait 60 make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-newlib-nano-install/stamp
+  - travis_wait 60 make obj/x86_64-apple-darwin/build/riscv-gnu-toolchain/build-gcc-newlib-stage2/stamp
+  - travis_wait 60 make obj/x86_64-apple-darwin/stamps/riscv-gnu-toolchain/install.stamp
+  - travis_wait 60 make bin/riscv64-unknown-elf-gcc-8.2.0-2019.02.0-x86_64-apple-darwin.src.tar.gz
+  - travis_wait 60 make bin/riscv64-unknown-elf-gcc-8.2.0-2019.02.0-x86_64-apple-darwin.tar.gz
+  - travis_wait 60 make obj/x86_64-apple-darwin/stamps/riscv-openocd/install.stamp
+  - travis_wait 60 make bin/riscv-openocd-0.10.0-2019.02.0-x86_64-apple-darwin.src.tar.gz
+  - travis_wait 60 make bin/riscv-openocd-0.10.0-2019.02.0-x86_64-apple-darwin.tar.gz
