@@ -6,7 +6,7 @@ openocd:
 qemu:
 xc3sprog:
 
-PREFIXPATH :=
+PREFIXPATH ?=
 BINDIR := bin
 OBJDIR := obj
 SRCDIR := $(PREFIXPATH)src
