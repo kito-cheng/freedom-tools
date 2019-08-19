@@ -6,9 +6,11 @@ openocd:
 qemu:
 xc3sprog:
 
+PREFIXPATH :=
 BINDIR := bin
 OBJDIR := obj
-SRCDIR := src
+SRCDIR := $(PREFIXPATH)src
+SCRIPTSDIR := $(PREFIXPATH)scripts
 
 UBUNTU32 ?= i686-linux-ubuntu14
 UBUNTU64 ?= x86_64-linux-ubuntu14
@@ -584,7 +586,7 @@ $(OBJDIR)/%/build/riscv-openocd/configure:
 	rm -rf $(dir $@)
 	mkdir -p $(dir $@)
 	cp -a $(SRC_ROCD)/* $(dir $@)
-	$(SED) -i -f scripts/openocd.sed -e "s/SIFIVE_PACKAGE_VERSION/SiFive OpenOCD $(ROCD_VERSION)/" $(dir $@)/src/openocd.c
+	$(SED) -i -f $(SCRIPTSDIR)/openocd.sed -e "s/SIFIVE_PACKAGE_VERSION/SiFive OpenOCD $(ROCD_VERSION)/" $(dir $@)/src/openocd.c
 	find $(dir $@) -iname configure.ac | $(SED) s/configure.ac/m4/ | xargs mkdir -p
 	cd $(dir $@); ./bootstrap nosubmodule &>make-bootstrap.log
 	touch -c $@
@@ -743,10 +745,10 @@ $(OBJDIR)/%/build/riscv-qemu/stamp:
 	cd $(dir $@); $(TAR) -xf pixman-0.38.0.tar.gz
 	cd $(dir $@); mv pixman-0.38.0 pixman
 	cp -a $(SRC_RQEMU) $(dir $@)
-	$(SED) -i -f scripts/qemu-configure.sed $(dir $@)/riscv-qemu/configure
-	$(SED) -i -f scripts/qemu-sifive-e.sed $(dir $@)/riscv-qemu/hw/riscv/sifive_e.c
-	$(SED) -i -f scripts/qemu-common.sed $(dir $@)/riscv-qemu/include/qemu-common.h
-	$(SED) -i -f scripts/qemu-vl.sed $(dir $@)/riscv-qemu/vl.c
+	$(SED) -i -f $(SCRIPTSDIR)/qemu-configure.sed $(dir $@)/riscv-qemu/configure
+	$(SED) -i -f $(SCRIPTSDIR)/qemu-sifive-e.sed $(dir $@)/riscv-qemu/hw/riscv/sifive_e.c
+	$(SED) -i -f $(SCRIPTSDIR)/qemu-common.sed $(dir $@)/riscv-qemu/include/qemu-common.h
+	$(SED) -i -f $(SCRIPTSDIR)/qemu-vl.sed $(dir $@)/riscv-qemu/vl.c
 	date > $@
 
 $(OBJ_NATIVE)/build/riscv-qemu/zlib/stamp: \
@@ -975,10 +977,10 @@ $(OBJDIR)/%/build/xc3sprog/stamp:
 	cd $(dir $@); $(TAR) -xf libiconv-1.15.tar.gz
 	cd $(dir $@); mv libiconv-1.15 libiconv
 	cp -a $(SRC_XC3SP) $(dir $@)
-	$(SED) -i -f scripts/xc3sprog.sed -e "s/SIFIVE_PACKAGE_VERSION/SiFive XC3SPROG $(XC3SP_VERSION)/" $(dir $@)/xc3sprog/xc3sprog.cpp
-	$(SED) -i -f scripts/xc3sprog-cmake.sed $(dir $@)/xc3sprog/CMakeLists.txt
-	$(SED) -i -f scripts/xc3sprog-cmake.sed $(dir $@)/xc3sprog/javr/CMakeLists.txt
-	$(SED) -i -f scripts/xc3sprog-mingw32.sed $(dir $@)/xc3sprog/Toolchain-mingw32.cmake
+	$(SED) -i -f $(SCRIPTSDIR)/xc3sprog.sed -e "s/SIFIVE_PACKAGE_VERSION/SiFive XC3SPROG $(XC3SP_VERSION)/" $(dir $@)/xc3sprog/xc3sprog.cpp
+	$(SED) -i -f $(SCRIPTSDIR)/xc3sprog-cmake.sed $(dir $@)/xc3sprog/CMakeLists.txt
+	$(SED) -i -f $(SCRIPTSDIR)/xc3sprog-cmake.sed $(dir $@)/xc3sprog/javr/CMakeLists.txt
+	$(SED) -i -f $(SCRIPTSDIR)/xc3sprog-mingw32.sed $(dir $@)/xc3sprog/Toolchain-mingw32.cmake
 	date > $@
 
 $(OBJDIR)/%/build/xc3sprog/libusb/stamp: \
